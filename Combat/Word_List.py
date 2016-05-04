@@ -1,1 +1,1 @@
-easyWords = ["bat","cat","dog","tree","red","blue","bob","clue","zack","wet","sea","wave","rat","boo"]
+easyWords = ["bat","cat","dog","tree","red","blue","bob","clue","zack","wet","sea","wave","rat","boo","hoot","boot",]
