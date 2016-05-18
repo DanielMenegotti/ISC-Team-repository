@@ -17,5 +17,5 @@ class monster():
 big_Rat = monster("Big rat", 1, 3, 0)
         
         
-        
+earlyMonsters = [big_Rat]        
         
