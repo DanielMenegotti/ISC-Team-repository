@@ -1,6 +1,7 @@
 # Import for the wordlist will go here instead of a base word
 import random
 from Word_List import *
+from Entities import *
 rand = random.randint(0,len(easyWords))
 word = (easyWords[rand])
 # How long the word is
