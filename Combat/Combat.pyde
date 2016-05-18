@@ -3,8 +3,6 @@ import random
 from Word_List import *
 from Entities import *
 from Floors import *
-PImage (bigratImg)
-bigratImg = loadImage("BigRat.png")
 rand = random.randint(0,len(easyWords))
 word = (easyWords[rand])
 # How long the word is
@@ -22,7 +20,7 @@ def setup():
 
 def draw():
   fill(255)
-  rect(0, 0, 400, 400)
+  rect(0, 0, 1080, 720)
   textSize(35)
   fill(0)
   text(word, 200 , 200)
@@ -33,6 +31,8 @@ def keyTyped():
     global cycle
     global baseAttack
     global winner
+    global bigratImg
+    bigratImg = loadImage("BigRat.png")
     image(bigratImg, 500, 400)
     compar = ""
     compar = key
