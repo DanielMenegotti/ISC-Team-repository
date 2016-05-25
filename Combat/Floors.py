@@ -1,16 +1,5 @@
 
-
-
-def generate_floors(current_floor):
-    roomNum = 0
-    monster_rooms = 0
-    utility_rooms = 0
-    miniBoss_rooms = 0
-    floor_layout = []
-    while roomNum <= 5:
-        if current_floor <= 2:
-            monster_rooms = random.randint(0, 3)
-            roomNum = roomNum + monster_rooms
-            
-            
-        
+floor_layout1 = ["m","m","u","m","u","b"]
+floor_layout2 = ["u","u","m","m","m","b"]
+floor_layout3 = ["m","u","m","u","m","b"]
+floor_layouts = [floor_layout1, floor_layout2, floor_layout3]

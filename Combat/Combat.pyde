@@ -24,6 +24,8 @@ def draw():
   textSize(35)
   fill(0)
   text(word, 200 , 200)
+  bigratImg = loadImage("BigRat.png")
+  image(bigratImg, 500, 400)
 
 
 def keyTyped():
@@ -32,8 +34,6 @@ def keyTyped():
     global baseAttack
     global winner
     global bigratImg
-    bigratImg = loadImage("BigRat.png")
-    image(bigratImg, 500, 400)
     compar = ""
     compar = key
     if in_combat == 1:
