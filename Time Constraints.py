@@ -2,13 +2,13 @@ from time import sleep
 import threading
 
 class myThread(threading.Thread):
-    def __init__(self, time):
+    def __init__(self, speed):
         threading.Thread.__init__(self)
-        self.time = time
+        self.time = speed
     
     def run(self):
         sleep(self.time)
-        print("Kablam!!")
         
-hohoho = myThread(5)
+        
+#Add to   = myThread(speed)
 hohoho.start()
