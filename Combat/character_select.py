@@ -1,7 +1,15 @@
+
 def draw():
     background(250)
     rect(140,120,300,300)
     rect(640,120,300,300)
+    head_1 = loadImage("choice1.png")
+    head_2 = loadImage("choice2.png")
+    head_3 = loadImage("choice1.2.png")
+    head_4 = loadImage("choice2.2.png")
+    image(head_1,140,120)
+    image(head_2,640,120)
+
 
 def mouseClicked():
     global value
@@ -14,3 +22,4 @@ def mouseClicked():
         print character_select
     if character_select > 0:
         # Exits
+   
