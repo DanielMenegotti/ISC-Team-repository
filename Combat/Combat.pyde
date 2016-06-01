@@ -1,68 +1,56 @@
 # Imports for the other files in the program also random words
+print("combat")
 import random
-from Word_List import *
+from Word_list import *
 from Entities import *
 from Floors import *
 rand = random.randint(0,len(easyWords))
+randFloor = random.randint(0,len(floor_layouts) - 1)
 word = (easyWords[rand])
-# How long the word is
-length = len(word)
 # Setting up the global values that will be used in checking the word
+baseAttack = character.damage
+health = character.health
+armor = character.armor
 wordkey = ""
-cycle = 0
-baseAttack = 10
 winner = 0
-in_combat = 0
+in_combat = 1
+current_Floor = floor_layouts[randFloor]
+print("current_floor")
 
 def setup():
-  size(1080,720)
-  wordkey = ""
+   size(1080,720)
+   print("setup happened")
 
 def draw():
-  fill(255)
-  rect(0, 0, 1080, 720)
-  textSize(35)
-  fill(0)
-  text(word, 200 , 200)
-  bigratImg = loadImage("BigRat.png")
-  image(bigratImg, 500, 400)
+   fill(255)
+   rect(0, 0, 1080, 720)
+   textSize(35)
+   fill(0)
+   text(word, 200 , 200)
+   bigratImg = loadImage("BigRat.png")
+   image(bigratImg, 500, 400)
 
 
 def keyTyped():
-    global wordkey
-    global cycle
-    global baseAttack
-    global winner
-    global bigratImg
-    compar = ""
-    compar = key
-    if in_combat == 1:
+     global wordkey
+     global winner
+     if in_combat == 1:
         if key == ENTER:
             if wordkey == word:
                 print ("you have dealt damage to the enemy")
-                winner = 1
+                wordkey = ""
             else:
                 print("You have failed your attack")
-        elif cycle == length:
-            print("You exceed the words length, -2 to damage")
-            baseAttack -= 2    
-        if winner == 0:
-            if key != word[cycle]:
-                baseAttack -= 2
-                print("BAD")
-                cycle += 1
-            else:
-                cycle += 1
-        text = ""
-        text += key
-        wordkey += text
-        print (text)
+        if key == BACKSPACE:
+            if wordkey > 0:
+                wordkey = wordkey[:len(wordkey) - 1]
+                wordkey = wordkey.replace(" ", "")
+                print(wordkey)
+        else:
+            text = ""
+            text += key
+            wordkey += text
+            print (text)
 
 def mouseClicked():
-    print(wordkey)        
-        
-    
-    
-    
-  
-    
+    print(wordkey)
