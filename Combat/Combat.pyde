@@ -1,6 +1,6 @@
 # Imports for the other files in the program also random words
 import random
-from Word_list import *
+from Word_List import *
 from Entities import *
 from Floors import *
 randEasy = random.randint(0,len(easyWords))
