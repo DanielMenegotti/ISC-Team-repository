@@ -1,4 +1,4 @@
-print("character_select")
+
 def draw():
     background(250)
     rect(140,120,300,300)

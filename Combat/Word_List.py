@@ -3,4 +3,3 @@ easyWords = ["bat", "cat", "dog", "tree", "red", "blue", "bob", "clue",  "zack",
 
 mediumWords = ["blank", "shank", "clank", "lumbar", "support", "crash", "smash", "tesla", "coil", "foil", "toil",
               "smoke", "mirrors", "trick", "sport", "running", "spinning", "trying", "buying", "smiling", "crying"]
-print("word_list")
