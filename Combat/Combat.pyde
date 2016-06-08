@@ -3,9 +3,9 @@ import random
 from Word_List import *
 from Entities import *
 from Floors import *
-randEasy = random.randint(0,len(easyWords))
+randEasy = random.randint(0,len(easyWords) - 1)
 randFloor = random.randint(0,len(floor_layouts) - 1)
-randEarlyMonsters = random.randint(0,len(earlyMonsters) - 1)
+#randEarlyMonsters = random.randint(0,len(earlyMonsters) - 1)
 word = (easyWords[randEasy])
 # Setting up the global values that will be used in checking the word
 baseAttack = character.damage
@@ -13,11 +13,14 @@ health = character.health
 armor = character.armor
 wordkey = ""
 winner = 0
-in_combat = 1
+in_combat = 0
 monster_setup = 0
 current_Floor = floor_layouts[randFloor]
 floor_level = 1
 damage_dealt = 0
+menu = 1
+char_select = 0
+character_select = 0
 print(current_Floor)
 
 def setup():
@@ -31,19 +34,56 @@ def draw():
    rect(0, 0, 1080, 720)
    forest_Background = loadImage("ForestBackground.png")
    image(forest_Background, 0, 0)
-   if in_combat == 1 and monster_setup == 0:
+   if in_combat == 1:
        if floor_level <= 2:
-        monster = earlyMonsters[randEarlyMonsters]
-        if monster.name == "Slime":
-            slimeImg = loadImage("Slime.png")
-            image(slimeImg, 700, 400)
-        if monster.name == "Big rat":
-            ratImg = loadImage("BigRat.png")
-            image(ratImg, 700, 400)
-   textSize(35)
-   fill(0)
-   text(word, 200 , 200)
-   text(wordkey, 500, 540)
+           if monster_setup == 0:
+            randEarlyMonsters = random.randint(0,len(earlyMonsters) - 1)
+            monster = earlyMonsters[randEarlyMonsters]
+            monster_setup = 1
+           if monster.name == "Slime":
+                slimeImg = loadImage("Slime.png")
+                image(slimeImg, 700, 400)
+           if monster.name == "Big rat":
+                ratImg = loadImage("BigRat.png")
+                image(ratImg, 700, 400)
+       textSize(35)
+       fill(0)
+       text(word, 200 , 200)
+       text(wordkey, 500, 540)
+   if char_select == 1:
+        backdrop = loadImage("SelectBackground.png")
+        background(backdrop)
+        head_1 = loadImage("choice1.png") #Guy Face
+        head_2 = loadImage("choice2.png") #Girl Face
+        head_3 = loadImage("choice1.2.png") #Excited Guy Face
+        head_4 = loadImage("choice2.2.png") #Excited Girl Face
+        rect(140,120,300,300)
+        rect(640,120,300,300)
+        #Default faces
+        image(head_1,140,120)
+        image(head_2,640,120)
+        
+        #Animations for when the mouse goes over a character head
+        if mouseX > 140 and mouseX < 440 and mouseY > 120 and mouseY < 420:
+            image(head_3,140,120)
+        
+        elif mouseX > 640 and mouseX < 940 and mouseY > 120 and mouseY < 420: 
+            image(head_4,640,120)
+   if menu == 1:
+        background(250) #Have a drawn thing instead.
+        rect(340,10,370,45) #For title
+        rect(340,120,370,100) #For start button
+        rect(340,330,370,100) #Options
+        rect(340,540,370,100) #Quit
+        #Also something for a high score list
+        
+        #Buttons
+        start_button = loadImage("StartButton.png")
+        options_button = loadImage("OptionsButton.png")
+        quit_button = loadImage("QuitButton.png")
+        image(start_button,340,120)
+        image(options_button,340,330)
+        image(quit_button,340,540)
 
 
 def keyTyped():
@@ -76,4 +116,27 @@ def keyTyped():
             print (text)
 
 def mouseClicked():
-    print(wordkey)
+   global menu
+   global char_select
+   global in_combat
+   print(wordkey)
+   if menu == 1:
+        if mouseX > 340 and mouseX < 710 and mouseY > 120 and mouseY < 220:
+            print "Start Game"
+            menu = 0
+            char_select = 1
+        
+        elif mouseX > 340 and mouseX < 710 and mouseY > 330 and mouseY < 440:
+            print "Options"
+    
+        elif mouseX > 340 and mouseX < 710 and mouseY > 540 and mouseY < 640:
+            print "Quit"
+   if char_select == 1:
+        if mouseX > 140 and mouseX < 440 and mouseY > 120 and mouseY < 420:
+            character_select = 1
+            char_select = 0
+            in_combat = 1
+        elif mouseX > 640 and mouseX < 940 and mouseY > 120 and mouseY < 420:
+            character_select = 2
+            char_select = 0
+            in_combat = 1
