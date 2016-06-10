@@ -58,7 +58,7 @@ def draw():
                 image(ratImg, 700, 400)
            if monster.name == "Ogre":
                ogreImg = loadImage("OgreEasy.png")
-               image(ratImg, 700, 400)
+               image(ogreImg, 700, 400)
        textSize(35)
        fill(0)
        text("Health: ", 50, 50)
