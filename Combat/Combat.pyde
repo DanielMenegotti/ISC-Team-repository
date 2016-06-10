@@ -20,10 +20,10 @@ current_Floor = floor_layouts[randFloor]
 floor_level = 1
 floor_room = 0
 damage_dealt = 0
-menu = 1
-char_select = 0
-character_select = 0
-options = 0
+start_menu = 1
+character_Select_start_menu = 0
+character_Select = 0
+options_start_menu = 0
 game = 0
 print(current_Floor)
 
@@ -51,21 +51,21 @@ def draw():
             monster = earlyMonsters[randEarlyMonsters]
             monster_setup = 1
            if monster.name == "Slime":
-                slimeImg = loadImage("SlimeEasy.png")
-                image(slimeImg, 700, 400)
+                slime_Image = loadImage("SlimeEasy.png")
+                image(slime_Image, 700, 400)
            if monster.name == "Big rat":
-                ratImg = loadImage("BigRatEasy.png")
-                image(ratImg, 700, 400)
+                rat_Image = loadImage("BigRatEasy.png")
+                image(rat_Image, 700, 400)
            if monster.name == "Ogre":
-               ogreImg = loadImage("OgreEasy.png")
-               image(ratImg, 700, 400)
+               ogre_Image = loadImage("OgreEasy.png")
+               image(ogre_Image, 700, 400)
        textSize(35)
        fill(0)
        text("Health: ", 50, 50)
        text(health, 200, 50)
        text(word, 200 , 200)
        text(wordkey, 500, 540)
-   if char_select == 1:
+   if character_Select_start_menu == 1:
         fill(255)
         backdrop = loadImage("SelectBackground.png")
         background(backdrop)
@@ -85,21 +85,21 @@ def draw():
         
         elif mouseX > 640 and mouseX < 940 and mouseY > 120 and mouseY < 420: 
             image(head_4,640,120)
-   if menu == 1:
+   if start_menu == 1:
         background(250) #Have a drawn thing instead.
         fill(255)
         rect(340,10,370,45) #For title
         rect(340,120,370,100) #For start button
-        rect(340,330,370,100) #Options
+        rect(340,330,370,100) #options_start_menu
         rect(340,540,370,100) #Quit
         #Also something for a high score list
         
         #Buttons
         start_button = loadImage("StartButton.png")
-        options_button = loadImage("OptionsButton.png")
+        options_start_menu_button = loadImage("options_start_menuButton.png")
         quit_button = loadImage("QuitButton.png")
         image(start_button,340,120)
-        image(options_button,340,330)
+        image(options_start_menu_button,340,330)
         image(quit_button,340,540)
    if current_Floor[floor_room] == "u" and game == 1:
        fill(0)
@@ -145,31 +145,31 @@ def keyTyped():
             print (text)
 
 def mouseClicked():
-   global menu
-   global char_select
+   global start_menu
+   global character_Select_start_menu
    global in_combat
-   global options
+   global options_start_menu
    global game
    print(wordkey)
-   if menu == 1:
+   if start_menu == 1:
         if mouseX > 340 and mouseX < 710 and mouseY > 120 and mouseY < 220:
             print "Start Game"
-            menu = 0
-            char_select = 1
+            start_menu = 0
+            character_Select_start_menu = 1
         
         elif mouseX > 340 and mouseX < 710 and mouseY > 330 and mouseY < 440:
-            print "Options"
+            print "options_start_menu"
     
         elif mouseX > 340 and mouseX < 710 and mouseY > 540 and mouseY < 640:
             print "Quit"
             exit()
-   elif char_select == 1:
+   elif character_Select_start_menu == 1:
         if mouseX > 140 and mouseX < 440 and mouseY > 120 and mouseY < 420:
-            character_select = 1
-            char_select = 0
+            character_Select = 1
+            character_Select_start_menu = 0
             game = 1
             print("1")
         elif mouseX > 640 and mouseX < 940 and mouseY > 120 and mouseY < 420:
-            character_select = 2
-            char_select = 0
+            character_Select = 2
+            character_Select_start_menu = 0
             game = 1
