@@ -3,6 +3,7 @@ import random
 from Word_List import *
 from Entities import *
 from Floors import *
+from Encounters import *
 randEasy = random.randint(0,len(easyWords) - 1)
 randFloor = random.randint(0,len(floor_layouts) - 1)
 #randEarlyMonsters = random.randint(0,len(earlyMonsters) - 1)
@@ -17,10 +18,13 @@ in_combat = 0
 monster_setup = 0
 current_Floor = floor_layouts[randFloor]
 floor_level = 1
+floor_room = 0
 damage_dealt = 0
 menu = 1
 char_select = 0
 character_select = 0
+options = 0
+game = 0
 print(current_Floor)
 
 def setup():
@@ -30,10 +34,16 @@ def setup():
 def draw():
    global monster_setup
    global monster
+   global in_combat
+   global floor_room
+   global health
    fill(255)
    rect(0, 0, 1080, 720)
    forest_Background = loadImage("ForestBackground.png")
    image(forest_Background, 0, 0)
+   if current_Floor[floor_room] == "m" and game == 1:
+       in_combat = 1
+    
    if in_combat == 1:
        if floor_level <= 2:
            if monster_setup == 0:
@@ -41,16 +51,22 @@ def draw():
             monster = earlyMonsters[randEarlyMonsters]
             monster_setup = 1
            if monster.name == "Slime":
-                slimeImg = loadImage("Slime.png")
+                slimeImg = loadImage("SlimeEasy.png")
                 image(slimeImg, 700, 400)
            if monster.name == "Big rat":
-                ratImg = loadImage("BigRat.png")
+                ratImg = loadImage("BigRatEasy.png")
                 image(ratImg, 700, 400)
+           if monster.name == "Ogre":
+               ogreImg = loadImage("OgreEasy.png")
+               image(ratImg, 700, 400)
        textSize(35)
        fill(0)
+       text("Health: ", 50, 50)
+       text(health, 200, 50)
        text(word, 200 , 200)
        text(wordkey, 500, 540)
    if char_select == 1:
+        fill(255)
         backdrop = loadImage("SelectBackground.png")
         background(backdrop)
         head_1 = loadImage("choice1.png") #Guy Face
@@ -71,6 +87,7 @@ def draw():
             image(head_4,640,120)
    if menu == 1:
         background(250) #Have a drawn thing instead.
+        fill(255)
         rect(340,10,370,45) #For title
         rect(340,120,370,100) #For start button
         rect(340,330,370,100) #Options
@@ -84,6 +101,15 @@ def draw():
         image(start_button,340,120)
         image(options_button,340,330)
         image(quit_button,340,540)
+   if current_Floor[floor_room] == "u" and game == 1:
+       fill(0)
+       textSize(20)
+       text(cleric_passes.words, 500, 500)
+       health = cleric_passes.heal_hurt(health,2)
+       print (health)
+       floor_room += 1
+       delay(5000)
+        
 
 
 def keyTyped():
@@ -92,24 +118,27 @@ def keyTyped():
      global monster
      global in_combat
      global damage_dealt
+     global floor_room
      if in_combat == 1:
         if key == ENTER:
             if wordkey == word:
-                print ("you have dealt damage to the enemy")
+                print ("You have dealt damage to the enemy")
                 wordkey = ""
                 damage_dealt += baseAttack
             else:
                 print("You have failed your attack")
                 wordkey = ""
         if damage_dealt >= monster.health:
-            print(" you have defeated the enemy")
+            print("You have defeated the enemy")
             in_combat = 0
+            floor_room += 1
+            damage_dealt = 0
         if key == BACKSPACE:
             if wordkey > 0:
                 wordkey = wordkey[:len(wordkey) - 1]
                 #wordkey = wordkey.replace(" ", "")
                 print(wordkey)
-        else:
+        elif key != BACKSPACE and key != ENTER:
             text = ""
             text += key
             wordkey += text
@@ -119,6 +148,8 @@ def mouseClicked():
    global menu
    global char_select
    global in_combat
+   global options
+   global game
    print(wordkey)
    if menu == 1:
         if mouseX > 340 and mouseX < 710 and mouseY > 120 and mouseY < 220:
@@ -131,12 +162,14 @@ def mouseClicked():
     
         elif mouseX > 340 and mouseX < 710 and mouseY > 540 and mouseY < 640:
             print "Quit"
-   if char_select == 1:
+            exit()
+   elif char_select == 1:
         if mouseX > 140 and mouseX < 440 and mouseY > 120 and mouseY < 420:
             character_select = 1
             char_select = 0
-            in_combat = 1
+            game = 1
+            print("1")
         elif mouseX > 640 and mouseX < 940 and mouseY > 120 and mouseY < 420:
             character_select = 2
             char_select = 0
-            in_combat = 1
+            game = 1

@@ -9,12 +9,26 @@ class Entity():
  
         
         
-big_Rat = Entity("Big rat", 1, 3, 0)
-ratImg = loadImage("BigRat.png")
+        
+       
+        
+easybig_Rat = Entity("Big rat", 1, 3, 0)
+easyslime = Entity("Slime", 2, 5, 0)
+easyogre = Entity("Ogre", 3, 8, 2)
+
+big_Rat = Entity("Big rat", 2, 5, 0)
 slime = Entity("Slime", 1, 5, 0)
-slimeImg = loadImage("Slime.png")
 ogre = Entity("ogre", 3, 8, 2)
+
+hardbig_Rat = Entity("Big rat", 2, 3, 0)
+hardslime = Entity("Slime", 3, 8, 0)
+hardogre = Entity("Ogre", 4, 15, 2)
+
 character = Entity("Character", 2, 10, 0)
         
         
-earlyMonsters = [big_Rat,slime]
+earlyMonsters = [easybig_Rat,easyslime,easyogre]
+
+mediumMonsters = [big_Rat,slime,ogre]
+
+hardMonsters = [hardbig_Rat,hardslime,hardogre]
