@@ -10,4 +10,4 @@ class Utility():
         
         return health
         
-cleric_passes = Utility("A cleric passes by, along the way he heals you")
+cleric_passes = Utility("A cleric passes by, along the way he heals you. +2 Health")
