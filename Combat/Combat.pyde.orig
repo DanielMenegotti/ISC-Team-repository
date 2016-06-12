@@ -13,7 +13,7 @@ randFloor = random.randint(0,len(floor_layouts) - 1)
 word = ""
 base_Attack = character.damage
 health = character.health
-score = character.score
+armor = character.armor
 wordkey = ""
 winner = 0
 in_combat = 0
@@ -28,7 +28,6 @@ character_Select = 0
 options_start_menu = 0
 game = 0
 continue_Click = 0
-boss_Battle = 0
 print(current_Floor)
 
 def setup():
@@ -44,30 +43,21 @@ def draw():
    global set_Time
    global continue_Click
    global word
-   global floor_level
-   if floor_room >= 6:
-       floor_room = 0
-       floor_level = floor_level + 1
-       print(floor_level)
    fill(255)
    rect(0, 0, 1080, 720)
+   forest_Background = loadImage("ForestBackground.png")
+   image(forest_Background, 0, 0)
    if current_Floor[floor_room] == "m" and game == 1:
        in_combat = 1
     
    if in_combat == 1:
        if floor_level <= 2:
-           if floor_level == 1:
-               forest_Background = loadImage("ForestBackground.png")
-               image(forest_Background, 0, 0)
-           elif floor_level == 2:
-               early_Dungeon = loadImage("Level_2.png")
-               image(early_Dungeon, 0, 0)
            if monster_setup == 0:
-               randEarlyMonsters = random.randint(0,len(earlyMonsters) - 1)
-               monster = earlyMonsters[randEarlyMonsters]
-               monster_setup = 1
-               randEasy = random.randint(0,len(easyWords) - 1)
-               word = (easyWords[randEasy])
+            randEarlyMonsters = random.randint(0,len(earlyMonsters) - 1)
+            monster = earlyMonsters[randEarlyMonsters]
+            monster_setup = 1
+            randEasy = random.randint(0,len(easyWords) - 1)
+            word = (easyWords[randEasy])
            if monster.name == "Slime":
                 slime_Image = loadImage("SlimeEasy.png")
                 image(slime_Image, 700, 400)
@@ -77,37 +67,6 @@ def draw():
            if monster.name == "Ogre":
                ogre_Image = loadImage("OgreEasy.png")
                image(ogre_Image, 700, 400)
-           if monster.name == "Fairy":
-               fairy_Image = loadImage("miniBossFairy.png")
-               image(fairy_Image, 700, 400)
-           if monster.name == "Cyclops":
-               cyclops_Image = loadImage("miniBossCyclops")
-               image(cyclops_Image, 700, 400)
-       elif floor_level > 2 and floor_level < 5:
-           if floor_level == 3:
-               earlyMed_Dungeon = loadImage("Level_3.png")
-               image(earlyMed_Dungeon, 0, 0)
-           elif floor_level == 4:
-               Med_Dungeon = loadImage("Level_4.png")
-               image(Med_Dungeon, 0, 0)
-           if monster_setup == 0:
-               randEarlyMonsters = random.randint(0,len(earlyMonsters) - 1)
-               monster = earlyMonsters[randEarlyMonsters]
-               monster_setup = 1
-               randEasy = random.randint(0,len(easyWords) - 1)
-               word = (easyWords[randEasy])
-           if monster.name == "Slime":
-                slime_Image = loadImage("SlimeEasy.png")
-                image(slime_Image, 700, 400)
-           if monster.name == "Big rat":
-                rat_Image = loadImage("BigRatEasy.png")
-                image(rat_Image, 700, 400)
-           if monster.name == "Ogre":
-               ogre_Image = loadImage("OgreEasy.png")
-               image(ogre_Image, 700, 400)
-           if monster.name == "Fairy":
-               fairy_Image = loadImage("miniBossFairy.png")
-               image(fairy_Image, 700, 400)
        textSize(35)
        fill(0)
        text("Health: ", 50, 50)
@@ -151,32 +110,22 @@ def draw():
         image(options_start_menu_button,340,330)
         image(quit_button,340,540)
    if current_Floor[floor_room] == "u" and game == 1:
-        health = cleric_passes.heal_hurt(health,2)
-        print (health)
-        floor_room += 1
-        continue_Click = 1
-        in_Combat = 0
+    health = cleric_passes.heal_hurt(health,2)
+    print (health)
+    floor_room += 1
+    continue_Click = 1
+    in_Combat = 0
    if continue_Click == 1:
-        backdrop = loadImage("SelectBackground.png")
-        image(backdrop,0, 0)
-        fill(170)
-        rectMode(CENTER)
-        rect(540,360,655,250)
-        rect(540,535,200,100)
-        fill(255)
-        textSize(20)
-        text(cleric_passes.words, 275, 305)
-        text("Continue",500 , 535)
-   if current_Floor[floor_room] == "b" and game == 1:
-       boss_Battle = 1
-       in_combat = 1
-       monster_setup = 1
-       if floor_level == 1:
-           monster = miniBossFairy
-       if floor_level == 2:
-           monster = miniBossCyclops
-        
-
+    backdrop = loadImage("SelectBackground.png")
+    image(backdrop,0, 0)
+    fill(170)
+    rectMode(CENTER)
+    rect(540,360,655,250)
+    rect(540,535,200,100)
+    fill(255)
+    textSize(20)
+    text(cleric_passes.words, 275, 305)
+    text("Continue",500 , 535)
     
 
     
@@ -192,9 +141,7 @@ def keyTyped():
      global damage_dealt
      global floor_room
      global word
-     global monster_setup
-     global boss_Battle
-     if in_combat == 1 or boss_Battle:
+     if in_combat == 1:
         if key == ENTER:
             if wordkey == word:
                 print ("You have dealt damage to the enemy")
@@ -210,8 +157,6 @@ def keyTyped():
             in_combat = 0
             floor_room += 1
             damage_dealt = 0
-            monster_setup = 0
-            boss_Battle = 0
         if key == BACKSPACE:
             if wordkey > 0:
                 wordkey = wordkey[:len(wordkey) - 1]
@@ -231,8 +176,6 @@ def mouseClicked():
    global game
    global continue_Click
    print(wordkey)
-   global damage_dealt
-   damage_dealt = 100
    if start_menu == 1:
         if mouseX > 340 and mouseX < 710 and mouseY > 120 and mouseY < 220:
             print "Start Game"
